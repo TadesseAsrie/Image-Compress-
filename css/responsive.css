@@ -1,0 +1,64 @@
+/* Responsive Structural Breakdown Styles Matrix */
+
+@media (max-width: 1024px) {
+    .hero-text h1 { font-size: 2.75rem; }
+    .workspace-layout { grid-template-columns: 1fr; }
+    .control-panel { position: sticky; top: 90px; z-index: 10; }
+}
+
+@media (max-width: 768px) {
+    .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+    .hero-text p { margin: 0 auto 2.5rem auto; }
+    .hero-actions { justify-content: center; }
+    .hero-illustration { display: none; }
+    
+    .header-wrap { position: relative; }
+    .mobile-nav-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 24px;
+        height: 18px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 110;
+    }
+    .mobile-nav-toggle span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: var(--text-primary);
+        transition: var(--transition-smooth);
+    }
+    
+    /* Mobile Menu Open State Transformations */
+    .mobile-nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .mobile-nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .mobile-nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: var(--bg-gradient-start);
+        border-left: 1px solid var(--glass-border);
+        flex-direction: column;
+        padding: 6rem 2rem 2rem 2rem;
+        align-items: flex-start;
+        transition: var(--transition-smooth);
+        box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+    }
+    .nav-menu.mobile-active { right: 0; }
+    
+    .card-main-row { flex-direction: column; align-items: flex-start; }
+    .card-actions-area { width: 100%; justify-content: space-between; margin-top: 1rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .split-slider-container { height: 350px; }
+}
+
+@media (min-width: 769px) {
+    .mobile-nav-toggle { display: none; }
+}
