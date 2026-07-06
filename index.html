@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageCompress Pro - Browser-Based Image Compression</title>
+    <meta name="description" content="Compress PNG, JPG, JPEG, and WebP images instantly inside your browser. Batch processing, local privacy, completely free.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Notification Container (Toast Messages) -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <!-- Header Section -->
+    <header class="main-header">
+        <div class="container header-wrap">
+            <a href="#" class="logo-area" aria-label="ImageCompress Pro Home">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 3H3v18h18V3zM8 12a2 2 0 100-4 2 2 0 000 4zM21 16l-5-5L5 21"/></svg>
+                <span>ImageCompress <span class="accent-text">Pro</span></span>
+            </a>
+            <button class="mobile-nav-toggle" aria-label="Toggle Navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="nav-menu" aria-label="Primary Navigation">
+                <a href="#" class="nav-link active">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container hero-grid">
+                <div class="hero-text">
+                    <h1>Compress Images <br><span class="gradient-text">Without Losing Quality</span></h1>
+                    <p>Optimized, lighting-fast compression for JPG, PNG, and WebP files directly in your browser. Complete privacy—files never leave your machine.</p>
+                    <div class="hero-actions">
+                        <a href="#compressor-workspace" class="btn btn-primary ripple">Upload Images</a>
+                        <a href="#features" class="btn btn-secondary">Learn More</a>
+                    </div>
+                </div>
+                <div class="hero-illustration" aria-hidden="true">
+                    <div class="glass-art-card">
+                        <div class="art-circle-1"></div>
+                        <div class="art-circle-2"></div>
+                        <div class="art-inner-card">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 14.899A7 7 0 1115.71 8h1.79a4.5 4.5 0 012.5 8.242M12 12v9m0-9l-3 3m3-3l3 3"/></svg>
+                            <div class="skeleton-line short"></div>
+                            <div class="skeleton-line long"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compressor Workspace Section -->
+        <section id="compressor-workspace" class="workspace-section container">
+            <!-- Dropzone Container -->
+            <div id="dropzone" class="drop-zone glass-card" tabindex="0" role="region" aria-label="Image Drop Zone">
+                <input type="file" id="file-input" class="file-hidden-input" multiple accept=".png, .jpg, .jpeg, .webp" aria-hidden="true">
+                <div class="drop-zone-content">
+                    <div class="icon-circle">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                    </div>
+                    <h3>Drag & Drop your images here</h3>
+                    <p>or <span class="browse-txt">browse files</span> from your computer</p>
+                    <span class="file-specs-hint">Supports JPEG, PNG, WebP up to 50MB. Clipboard pasting enabled.</span>
+                </div>
+            </div>
+
+            <!-- Global Compression Configurations Layout -->
+            <div id="workspace-layout" class="workspace-layout hidden">
+                <!-- Sidebar Parameters -->
+                <aside class="control-panel glass-card">
+                    <h2>Compression Settings</h2>
+                    <form id="settings-form" onsubmit="event.preventDefault();">
+                        <div class="setting-group">
+                            <div class="setting-header">
+                                <label for="param-quality">Compression Quality</label>
+                                <span id="quality-val" class="badge">80%</span>
+                            </div>
+                            <input type="range" id="param-quality" min="0" max="100" value="80" class="slider-input">
+                        </div>
+
+                        <div class="setting-group">
+                            <label for="param-format">Output Format</label>
+                            <select id="param-format" class="select-input">
+                                <option value="auto">Original Format (Auto)</option>
+                                <option value="image/jpeg">JPEG</option>
+                                <option value="image/png">PNG</option>
+                                <option value="image/webp">WebP</option>
+                            </select>
+                        </div>
+
+                        <hr class="divider">
+
+                        <div class="setting-group">
+                            <div class="checkbox-row">
+                                <input type="checkbox" id="toggle-resize" class="checkbox-input">
+                                <label for="toggle-resize">Resize Dimensions</label>
+                            </div>
+                        </div>
+
+                        <div id="resize-suboptions" class="resize-suboptions hidden-sub">
+                            <div class="dimension-inputs">
+                                <div class="input-sub">
+                                    <label for="param-width">Width (px)</label>
+                                    <input type="number" id="param-width" placeholder="Auto" class="num-input">
+                                </div>
+                                <div class="input-sub">
+                                    <label for="param-height">Height (px)</label>
+                                    <input type="number" id="param-height" placeholder="Auto" class="num-input">
+                                </div>
+                            </div>
+                            <div class="checkbox-row mt-3">
+                                <input type="checkbox" id="param-aspect" checked class="checkbox-input">
+                                <label for="param-aspect">Maintain Aspect Ratio</label>
+                            </div>
+                        </div>
+
+                        <div class="panel-actions">
+                            <button id="btn-execute-all" class="btn btn-primary btn-full ripple">Compress All Assets</button>
+                            <button id="btn-reset-all" class="btn btn-secondary btn-full">Reset Workflow</button>
+                        </div>
+                    </form>
+                </aside>
+
+                <!-- Processing Dashboard Area -->
+                <div class="processing-dashboard">
+                    <div class="dashboard-header glass-card">
+                        <div class="stats-text">
+                            <h3>Queue Overview</h3>
+                            <p id="queue-summary">0 files pending action</p>
+                        </div>
+                        <button id="btn-download-all" class="btn btn-success hidden">Download All Optimized Assets</button>
+                    </div>
+
+                    <!-- Pipeline Collection List -->
+                    <div id="pipeline-list" class="pipeline-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Comparison Stage -->
+        <section id="comparison-stage" class="comparison-stage container hidden">
+            <div class="glass-card">
+                <div class="stage-header">
+                    <h2>Visual Split Inspector</h2>
+                    <button id="btn-close-inspector" class="btn-close" aria-label="Close Comparison Stage">&times;</button>
+                </div>
+                <div class="split-slider-container" id="split-view-box">
+                    <div class="image-layer layer-before">
+                        <img id="inspect-before-img" src="" alt="Source asset state">
+                        <span class="view-tag tag-left">Original</span>
+                    </div>
+                    <div class="image-layer layer-after" id="inspect-after-layer">
+                        <img id="inspect-after-img" src="" alt="Compressed asset state">
+                        <span class="view-tag tag-right">Compressed</span>
+                    </div>
+                    <div class="slider-handle" id="inspect-handle" role="slider" aria-label="Image display separator slider handle" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0">
+                        <div class="handle-line"></div>
+                        <div class="handle-button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 5l-7 7 7 7M13 19l7-7-7-7"/></svg>
+                        </div>
+                        <div class="handle-line"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Value Capabilities Features -->
+        <section id="features" class="features-section">
+            <div class="container">
+                <h2 class="section-title">Engine Core Capabilities</h2>
+                <div class="features-grid">
+                    <div class="feature-card glass-card">
+                        <div class="f-icon-circle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        </div>
+                        <h3>Fast Local Performance</h3>
+                        <p>Leverages native canvas primitives to compress items in milliseconds directly inside the execution engine loop.</p>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div class="f-icon-circle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                        </div>
+                        <h3>Absolute Data Privacy</h3>
+                        <p>No remote payloads or database storage routines exist. Your assets never leave your physical file architecture.</p>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div class="f-icon-circle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2zM12 11v6M9 14h6"/></svg>
+                        </div>
+                        <h3>Batch Target Execution</h3>
+                        <p>Feed individual source images or multi-file directory groupings simultaneously into the workspace deployment engine.</p>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div class="f-icon-circle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                        </div>
+                        <h3>Adaptive Formats</h3>
+                        <p>Seamless cross-conversion matrices handling targeted WebP structural encoding along with baseline JPEG and PNG configurations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Informative Accordion Infrastructure -->
+        <section id="faq" class="faq-section container">
+            <h2 class="section-title">Technical Architecture & Operations FAQ</h2>
+            <div class="accordion-group">
+                <div class="accordion-item glass-card">
+                    <button class="accordion-trigger" aria-expanded="false" aria-controls="faq1-content">
+                        <span>Are my proprietary files sent to a storage server?</span>
+                        <span class="chevron-indicator"></span>
+                    </button>
+                    <div id="faq1-content" class="accordion-panel" hidden>
+                        <div class="panel-inner">
+                            <p>No. The data pipeline maps straight into local browser environment memory loops via client-side JavaScript APIs. File processing operations execute with absolute zero client-to-server calls.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item glass-card">
+                    <button class="accordion-trigger" aria-expanded="false" aria-controls="faq2-content">
+                        <span>How are transparent PNG background pixels parsed during optimization?</span>
+                        <span class="chevron-indicator"></span>
+                    </button>
+                    <div id="faq2-content" class="accordion-panel" hidden>
+                        <div class="panel-inner">
+                            <p>If transparency formats are mapped to explicit JPEG formats, alpha channels resolve natively to a clean flat-white solid layer block. Compressing directly to standard PNG or modern WebP structures safely locks and retains original channel transparency paths intact.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Global Application Footer Structure -->
+    <footer class="global-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="logo-area">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 3H3v18h18V3zM8 12a2 2 0 100-4 2 2 0 000 4zM21 16l-5-5L5 21"/></svg>
+                    <span>ImageCompress Pro</span>
+                </div>
+                <p class="mt-3">Advanced local binary optimization architecture for the modern web ecosystem.</p>
+            </div>
+            <div class="footer-links">
+                <h4>System Mapping</h4>
+                <a href="#">Top Node</a>
+                <a href="#features">Core Engines</a>
+                <a href="#faq">Operational FAQ</a>
+            </div>
+            <div class="footer-links">
+                <h4>Legal & Compliance</h4>
+                <a href="#" class="disabled-link">Privacy Architecture</a>
+                <a href="#" class="disabled-link">Terms of Operation</a>
+            </div>
+        </div>
+        <div class="footer-bottom container">
+            <p>&copy; 2026 ImageCompress Pro Platform. Engineered under local hardware canvas standards.</p>
+            <button id="btn-back-to-top" class="fab-btn" aria-label="Scroll back to top node layer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Structural Client Engine Injection Scripts -->
+    <script src="js/compressor.js" type="module"></script>
+    <script src="js/ui.js" type="module"></script>
+    <script src="js/app.js" type="module"></script>
+</body>
+</html>
