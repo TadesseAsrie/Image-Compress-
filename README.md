@@ -72,3 +72,4 @@ A modern, fast, and privacy-focused image compression web application built with
 ---
 
 **Developed with ❤️ using HTML, CSS, and JavaScript.**
+**if like the project gives star for support **
